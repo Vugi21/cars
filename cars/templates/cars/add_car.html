@@ -1,0 +1,115 @@
+{% extends 'cars/base.html' %}
+{% block content %}
+<style>
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  }
+  
+  .form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+  }
+  
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .btn-submit:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  }
+  
+  .btn-submit:active {
+    transform: scale(0.98);
+  }
+  
+  .required::after {
+    content: " *";
+    color: #e74c3c;
+  }
+</style>
+
+<div class="form-container">
+  <h2 class="form-title">
+    <i class="bi bi-car-front me-2" style="color: #667eea;"></i>Add New Car
+  </h2>
+  
+  <form method="post">
+    {% csrf_token %}
+    
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}" class="{% if field.field.required %}required{% endif %}">
+          {% if field.name == 'make' %}
+            <i class="bi bi-tag me-1"></i>Make
+          {% elif field.name == 'model' %}
+            <i class="bi bi-tag me-1"></i>Model
+          {% elif field.name == 'year' %}
+            <i class="bi bi-calendar me-1"></i>Year
+          {% elif field.name == 'color' %}
+            <i class="bi bi-palette me-1"></i>Color
+          {% elif field.name == 'vin' %}
+            <i class="bi bi-hash me-1"></i>VIN
+          {% else %}
+            {{ field.label }}
+          {% endif %}
+        </label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="alert alert-danger mt-2">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    
+    <button type="submit" class="btn-submit">
+      <i class="bi bi-check-circle me-2"></i>Save Car
+    </button>
+  </form>
+</div>
+{% endblock %}

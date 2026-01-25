@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Maintenance Tracker</title>
+    <!-- Bootswatch Cosmo theme -->
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/cosmo/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #1a252f 100%);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            border-right: 3px solid #667eea;
+        }
+        
+        .sidebar h4 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar .nav-link {
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: #667eea;
+            transform: translateX(10px);
+        }
+        
+        .main-content {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(240,245,250,0.95));
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .topbar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .container {
+            padding: 30px;
+        }
+    </style>
+</head> 
+<body>
+    <div class="d-flex h-100">
+      <!-- Sidebar -->
+      <nav class="sidebar text-white p-3" style="width: 220px; height: 100vh; overflow-y: auto;">
+        <h4 class="fw-bold"><i class="bi bi-speedometer2"></i> Dashboard</h4>
+        <ul class="nav flex-column mt-4">
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'car_list' %}">
+            <i class="bi bi-car-front me-2"></i>My Cars</a>
+          </li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'add_car' %}">
+            <i class="bi bi-plus-circle me-2"></i>Add New Car</a>
+          </li>
+        </ul>
+      </nav>
+  
+      <!-- Main content -->
+      <div class="flex-fill overflow-auto">
+        <div class="main-content">
+          <div class="topbar">
+            <i class="bi bi-speedometer2 me-2"></i>Car History and Details
+          </div>
+    
+          <div class="container">
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
